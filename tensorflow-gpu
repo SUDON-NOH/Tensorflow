@@ -1,0 +1,84 @@
+* 텐서플로 GPU 버전 설치방법 ( 작성일: 2019-01-18 )
+
+[ 설치 요약 ]
+1. NVIDIA GPU (GTX 650 이상 필요, GTX1080권장, 본문서는 GTX1050 TI 4G 로 테스트함 )  
+2. CUDA Toolkit 9.0  
+3. CuDNN 7.4.1  
+4. Python 3.6.7 
+5. Pycharm
+5. Tensorflow-gpu 1.12
+6. pip 18.1
+7. Tensorflow 예제 실행하여 시간 비교
+
+설치 방법 URL : http://blog.naver.com/PostView.nhn?blogId=parksehoon1971&logNo=221411791245
+
+[ 설치 순서 ]
+
+1. NVIDIA 지포스 통합 그래픽 드라이버 설치 : https://www.nvidia.co.kr/Download/index.aspx?lang=kr
+    417.71-desktop-win10-64bit-international-whql.exe 을 다운 받아 실행(dlal
+
+2. CUDA Toolkit 9.0  버전 설치 :  https://developer.nvidia.com/cuda-90-download-archive?target_os=Windows&target_arch=x86_64&target_version=10&target_type=exelocal
+     cuda_9.0.176_win10.exe 을 다운 받아 실행
+
+    윈도우 환경변수의 Path에 아래 세개 추가(위 설치방법 URL 참조)
+     C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\bin
+     C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\libnvvp
+     C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\extra\CUPTI\libx64
+
+3. CuDNN 7.4.1 버전 설치 :  https://developer.nvidia.com/rdp/cudnn-archive
+      cudnn-9.0-windows10-x64-v7.4.1.5.zip 을 다운 받아 압축해제후
+      C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\ 안에 복사해 넣는다(위 설치방법 URL 참조)
+
+4. python  설치 : 3.6.7  64bit 버전
+     https://www.python.org/
+     Add Python 3.6 to PATH 옵션 을 반드시 체크
+
+5. Pycharm 통합 개발환경 설치 : 최신 버전으로
+    https://www.jetbrains.com/pycharm/download/#section=windows
+    Community 버전 다운로드
+    
+3. pip 을 최신버전 18.1 으로 업그레이드
+
+3. tensorflow-gpu 버전 설치 : 1.12 버전
+   Pycharm에서 터미널을 실행하고 pip install tensorflow-gpu 실행
+
+[ Tensorflow 예제 실행 속도 비교]
+
+아래 gpu_test.py 소스를 
+with tf.device("/gpu:0"): 
+으로 설정하여 실행하면
+Time taken: 0:00:02.392292
+
+with tf.device("/cpu:0"): 
+으로 설정하여 실행하면
+Time taken: 0:00:19.018957
+GPU가 약 8배 정도 빠르다
+------------------------------------------------------------------------------------------
+# gpu_test.py
+
+import sys
+import numpy as np
+import tensorflow as tf
+from datetime import datetime
+
+shape = (int(10000), int(10000))
+
+# with tf.device("/cpu:0"):
+with tf.device("/gpu:0"):
+    random_matrix = tf.random_uniform(shape=shape, minval=0, maxval=1)
+    dot_operation = tf.matmul(random_matrix, tf.transpose(random_matrix))
+    sum_operation = tf.reduce_sum(dot_operation)
+
+startTime = datetime.now()
+with tf.Session(config=tf.ConfigProto(log_device_placement=True)) as session:
+    result = session.run(sum_operation)
+    print(result)
+
+print("\n" * 2)
+print("Time taken:", datetime.now() - startTime)
+print("\n" * 2)
+------------------------------------------------------------------------------------------
+CNN 예제인  mnist_cnn_ensemble.py 소스의 경우
+CPU 버전 :     0:32:35
+GPU 버전 :     0:02:57.407774  , GTX1050 TI 4G
+10배 이상 빠르다
