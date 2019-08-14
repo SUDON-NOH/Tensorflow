@@ -65,5 +65,3 @@ result1 = holder1 * 2 # 예측 공식
 print(result1) # Tensor("mul_1:0", shape=(1,), dtype=float32)
 result2 = sess.run(result1, feed_dict = {holder1 : [10]}) # feed_dict 는 node에 들어갈 값들을 정의해주는 기능을 한다.
 print(result2) # [20.]
-
-w
