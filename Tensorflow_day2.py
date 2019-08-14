@@ -27,6 +27,7 @@ print('result: ', result) # [ 3.  7. 11. 15.]
 2. Classification(분류) 모델
 
    (1) binary classification : '0과 1'처럼 답이 두 개만 존재 
+       (=logistic regression)
        ex) 1시간 공부해서 합격 / 불합격
        sigmoid 함수 : 한 없이 0과 1에 가까워진다.
        
