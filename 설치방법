@@ -85,3 +85,7 @@ CNN 예제인  mnist_cnn_ensemble.py 소스의 경우
 CPU 버전 :     0:32:35
 GPU 버전 :     0:03:12.268754  , GTX1050 TI 4G
 GPU가 10배 이상 빠르다
+
+
+
+# cmd에서 python.exe -m pip install --upgrade pip
