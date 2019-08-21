@@ -22,7 +22,7 @@ train = optimizer.minimize(cost)                                  # 비용을 �
 # optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01).minimize(cost)
 
 sess = tf.Session()
-sess.run(tf.global_variables_initializer())
+sess.run(tf.global_variables_initializer()) # Variable 값을 초기화하는 작업
 
 # start learning : 학습단계
 for step in range(2001):
