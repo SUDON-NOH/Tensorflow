@@ -1,6 +1,6 @@
 import tensorflow as tf
 import matplotlib.pyplot as plt
-
+ 
 # X, Y를 placeholder 를 사용하여 구현
 
 W = tf.Variable(tf.random_normal([1]), name = 'weight') # 1차원
