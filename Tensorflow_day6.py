@@ -48,7 +48,7 @@ for step in range(10001):
 
 # accuracy computation
 predict = tf.cast(hypothesis > 0.5, dtype = tf.float32)
-# hypothesis는 1의 값이 나오지 않기 떄문에(sigmoid 함수에서는 1에 한없이 가까워지는 것)
+# hypothesis는 1의 값이 나오지 않기 때문에(sigmoid 함수에서는 1에 한없이 가까워지는 것)
 # 1의 값을 주기 위해 0.5보다 큰 값들을 1로 바꿔준다
 
 accuracy = tf.reduce_mean(tf.cast(tf.equal(predict,Y),
