@@ -46,6 +46,8 @@ hypothesis = tf.nn.softmax(logits)
 
 cost =  tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits = logits,
                                              labels = Y))
+# cross_entropy
+#
 # optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cost)
 optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
 # Gradient 와 Adamoptimizer 둘 중 하나를 선택해서 한다. 둘 다 실행 후에 선택
